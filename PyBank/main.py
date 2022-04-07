@@ -17,6 +17,17 @@ average_change = 0
 greatest_increase = ["", -9999999999]
 greatest_decrease = ["", 9999999999]
 
+# function that prints out the results to terminal, and to file
+def print_result(result):
+    for item in result:
+        print(item)
+    # Export the results to text file
+    with open("./analysis/budget_analysis.txt", "w") as text_file:
+        for item in result:
+            text_file.write(item + '\n')
+
+
+# Main
 budget_csv = os.path.join(".", "Resources", "budget_data.csv")
 with open(budget_csv) as csvfile:
 
@@ -42,24 +53,17 @@ with open(budget_csv) as csvfile:
                 greatest_decrease[1] = change
         last = int(row[1])
 
-
 average_change = total_change / (total_months - 1) 
-print("```text")
-print("Financial Analysys")
-print("----------------------------")
-print(f"Total Months: {total_months}")
-print(f"Total: ${total_profit_losses}")
-print(f"Average Change: ${'{:.2f}'.format(average_change)}")
-print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
-print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
 
-with open("./analysis/budget_analysis.csv", "w") as datafile:
-    writer = csv.writer(datafile)
-    writer.writerow(["```text"])
-    writer.writerow(["Financial Analysys"])
-    writer.writerow(["----------------------------"])
-    writer.writerow(["Total Months: " + str(total_months)])
-    writer.writerow(["Total: $" + str(total_profit_losses)])
-    writer.writerow(["Average Change: $" + '{:.2f}'.format(average_change)])
-    writer.writerow(["Greatest Increase in Profits: " + greatest_increase[0] + " ($" + str(greatest_increase[1]) + ")"])
-    writer.writerow(["Greatest Decrease in Profits: " + greatest_decrease[0] + " ($" + str(greatest_decrease[1]) + ")"])
+# Generating analysis
+display = []
+display.append("```text")
+display.append("Financial Analysys")
+display.append("----------------------------")
+display.append("Total Months: " + str(total_months))
+display.append("Total: $" + str(total_profit_losses))
+display.append("Average Change: $" + '{:.2f}'.format(average_change))
+display.append("Greatest Increase in Profits: " + greatest_increase[0] + " ($" + str(greatest_increase[1]) + ")")
+display.append("Greatest Decrease in Profits: " + greatest_decrease[0] + " ($" + str(greatest_decrease[1]) + ")")
+# Print the analysis results to the console and to the file
+print_result(display)

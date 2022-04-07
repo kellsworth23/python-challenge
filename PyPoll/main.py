@@ -19,7 +19,7 @@ def print_result(result):
         for item in result:
             text_file.write(item + '\n')
 
-
+# Main
 votes_csv = os.path.join(".", "Resources", "election_data.csv")
 with open(votes_csv) as csvfile:
 
